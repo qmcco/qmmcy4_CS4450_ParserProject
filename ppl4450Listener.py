@@ -17,6 +17,15 @@ class ppl4450Listener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by ppl4450Parser#operation.
+    def enterOperation(self, ctx:ppl4450Parser.OperationContext):
+        pass
+
+    # Exit a parse tree produced by ppl4450Parser#operation.
+    def exitOperation(self, ctx:ppl4450Parser.OperationContext):
+        pass
+
+
     # Enter a parse tree produced by ppl4450Parser#assignment.
     def enterAssignment(self, ctx:ppl4450Parser.AssignmentContext):
         pass
@@ -68,6 +77,33 @@ class ppl4450Listener(ParseTreeListener):
 
     # Exit a parse tree produced by ppl4450Parser#array.
     def exitArray(self, ctx:ppl4450Parser.ArrayContext):
+        pass
+
+
+    # Enter a parse tree produced by ppl4450Parser#comparison.
+    def enterComparison(self, ctx:ppl4450Parser.ComparisonContext):
+        pass
+
+    # Exit a parse tree produced by ppl4450Parser#comparison.
+    def exitComparison(self, ctx:ppl4450Parser.ComparisonContext):
+        pass
+
+
+    # Enter a parse tree produced by ppl4450Parser#conditional.
+    def enterConditional(self, ctx:ppl4450Parser.ConditionalContext):
+        pass
+
+    # Exit a parse tree produced by ppl4450Parser#conditional.
+    def exitConditional(self, ctx:ppl4450Parser.ConditionalContext):
+        pass
+
+
+    # Enter a parse tree produced by ppl4450Parser#if.
+    def enterIf(self, ctx:ppl4450Parser.IfContext):
+        pass
+
+    # Exit a parse tree produced by ppl4450Parser#if.
+    def exitIf(self, ctx:ppl4450Parser.IfContext):
         pass
 
 
