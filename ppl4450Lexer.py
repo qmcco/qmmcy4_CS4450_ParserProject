@@ -1,4 +1,4 @@
-# Generated from ppl4450.g4 by ANTLR 4.13.2
+# Generated from ppl4450d2.g4 by ANTLR 4.13.2
 from antlr4 import *
 from io import StringIO
 import sys
@@ -165,7 +165,7 @@ class ppl4450Lexer(Lexer):
                   "BRA_C", "PAR_O", "PAR_C", "COM", "COL", "ID", "STR", 
                   "INT", "FLO", "BOOL", "INDT", "OUTDT", "NL", "WS" ]
 
-    grammarFileName = "ppl4450.g4"
+    grammarFileName = "ppl4450d2.g4"
 
     def __init__(self, input=None, output:TextIO = sys.stdout):
         super().__init__(input, output)
