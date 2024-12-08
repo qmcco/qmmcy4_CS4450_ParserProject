@@ -15,10 +15,13 @@ For Windows:
   * In the Command Prompt, run the command ***pip install antlr4-python3-runtime***
 * Install antlr-denter
   * Run the command ***pip install antlr-denter***
+* Install anaconda3 to facilitate use of graphviz plugin
+  * Install here: https://www.anaconda.com/download 
 * Install graphviz
-  * Run the command ***pip install graphviz*** note: issues may arise installing graphviz in this manner, these may be solved by using anaconda3
+  * Open an Anaconda Prompt
+  * Run the command ***conda install graphviz*** note: installing via pip without anaconda may work, however it cause me issues so this is the method I would recommend
 * Clone the GitHub repository
   * Run the command ***git clone https://github.com/qmcco/qmmcy4_CS4450_ParserProject.git***
-* Navigate to the project folder
+* Navigate to the project folder in an Anaconda Prompt
   * Run the command ***cd qmmcy4_CS4450_ParserProject***
-* Run the following command to test the provided project_deliverable_3.py file: ***python3 main.py project_deliverable_3.py*** this will also create a .png of the parse tree
+* In the Anaconda Prompt run the following command to test the provided project_deliverable_3.py file: ***python3 main.py project_deliverable_3.py*** this will also create a .png of the parse tree
