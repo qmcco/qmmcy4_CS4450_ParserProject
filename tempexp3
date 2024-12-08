@@ -1,0 +1,196 @@
+grammar ppl4450;
+
+tokens { INDENT, DEDENT }
+
+@lexer::members {
+    private java.util.LinkedList<Token> tokens = new java.util.LinkedList<>();
+    private java.util.Stack<Integer> indents = new java.util.Stack<>();
+    private int opened = 0;
+    private Token lastToken = null;
+
+    @Override
+    public void emit(Token t) {
+        super.setToken(t);
+        tokens.offer(t);
+    }
+
+    @Override
+    public Token nextToken() {
+        if (_input.LA(1) == EOF && !this.indents.isEmpty()) {
+            for (int i = tokens.size() - 1; i >= 0; i--) {
+                if (tokens.get(i).getType() == EOF) {
+                    tokens.remove(i);
+                }
+            }
+            this.emit(commonToken(ppl4450Parser.NEWLINE, "\n"));
+            while (!indents.isEmpty()) {
+                this.emit(createDedent());
+                indents.pop();
+            }
+            this.emit(commonToken(ppl4450Parser.EOF, "<EOF>"));
+        }
+        Token next = super.nextToken();
+        if (next.getChannel() == Token.DEFAULT_CHANNEL) {
+            this.lastToken = next;
+        }
+        return tokens.isEmpty() ? next : tokens.poll();
+    }
+
+    private Token createDedent() {
+        CommonToken dedent = commonToken(ppl4450Parser.DEDENT, "");
+        dedent.setLine(this.lastToken.getLine());
+        return dedent;
+    }
+
+    private CommonToken commonToken(int type, String text) {
+        int stop = this.getCharIndex() - 1;
+        int start = text.isEmpty() ? stop : stop - text.length() + 1;
+        return new CommonToken(this._tokenFactorySourcePair, type, DEFAULT_TOKEN_CHANNEL, start, stop);
+    }
+
+    static int getIndentationCount(String spaces) {
+        int count = 0;
+        for (char ch : spaces.toCharArray()) {
+            switch (ch) {
+                case '\t':
+                    count += 8 - (count % 8);
+                    break;
+                default:
+                    count++;
+            }
+        }
+        return count;
+    }
+
+    boolean atStartOfInput() {
+        return super.getCharPositionInLine() == 0 && super.getLine() == 1;
+    }
+}
+
+program
+    : single_input+ EOF
+    ;
+
+single_input
+    : NEWLINE
+    | operation
+    | if_stmt
+    ;
+
+operation
+    : assignment
+    | expression
+    ;
+
+assignment
+    : ID EQU expression
+    ;
+
+expression
+    : STR
+    | BOOL
+    | INT
+    | ID
+    | array
+    | arithmetic
+    | comparison
+    ;
+
+arithmetic
+    : operator (NEWLINE? (PLU | MIN) NEWLINE? operator)*
+    ;
+
+operator
+    : elem (NEWLINE? (MUL | DIV | MOD) NEWLINE? elem)*
+    ;
+
+elem
+    : ID
+    | ID BRA_O expression BRA_C
+    | array
+    | INT
+    | FLO
+    | STR
+    | BOOL
+    ;
+
+array
+    : BRA_O (NEWLINE? expression (NEWLINE? COM NEWLINE? expression)*) BRA_C
+    ;
+
+comparison
+    : conditional ((AND | OR) conditional)*
+    ;
+
+conditional
+    : (PAR_O? NOT? arithmetic (NEWLINE? (CLT | CGT | CLTE | CGTE | CEQU | CNEQU) NEWLINE? arithmetic)*)
+    ;
+
+if_stmt
+    : IF expression COL NEWLINE INDENT operation+ DEDENT
+      ( ELIF expression COL NEWLINE INDENT operation+ DEDENT )*
+      ( ELSE COL NEWLINE INDENT operation+ DEDENT )?
+    ;
+
+NEWLINE
+    : ({atStartOfInput()}? SPACES
+      | ('\r'? '\n' | '\r') SPACES?
+      )
+      {
+        String newLine = getText().replaceAll("[^\r\n]+", "");
+        String spaces = getText().replaceAll("[\r\n]+", "");
+        int next = _input.LA(1);
+        if (opened > 0 || next == '\r' || next == '\n' || next == '#') {
+            skip();
+        }
+        else {
+            emit(commonToken(NEWLINE, newLine));
+            int indent = getIndentationCount(spaces);
+            int previous = indents.isEmpty() ? 0 : indents.peek();
+            if (indent == previous) {
+                skip();
+            }
+            else if (indent > previous) {
+                indents.push(indent);
+                emit(commonToken(ppl4450.INDENT, spaces));
+            }
+            else {
+                while (!indents.isEmpty() && indents.peek() > indent) {
+                    this.emit(createDedent());
+                    indents.pop();
+                }
+            }
+        }
+      }
+    ;
+
+PLU     : '+';
+MIN     : '-';
+MUL     : '*';
+DIV     : '/';
+MOD     : '%';
+IF      : 'if';
+ELIF    : 'elif';
+ELSE    : 'else';
+EQU     : '=';
+CLT     : '<';
+CGT     : '>';
+CLTE    : '<=';
+CGTE    : '>=';
+CEQU    : '==';
+CNEQU   : '!=';
+AND     : 'and';
+OR      : 'or';
+NOT     : 'not';
+BRA_O   : '[';
+BRA_C   : ']';
+PAR_O   : '(';
+PAR_C   : ')';
+COM     : ',';
+COL     : ':';
+ID      : [a-zA-Z_][a-zA-Z_0-9]*;
+STR     : '\'' ( ~['] )* '\'' | '"' ( ~["] )* '"';
+INT     : [0-9]+;
+FLO     : [0-9]+ '.' [0-9]+ | [0-9]+;
+BOOL    : 'True' | 'False';
+SPACES  : [ \t]+;
