@@ -6,7 +6,7 @@ This project implements a parser to recognized and validate basic Python code. T
 * Antlr4 version 4.13.2 https://github.com/antlr/antlr4
 * antlr-denter version 1.3.1 https://github.com/yshavit/antlr-denter
 * graphviz version 0.20.3 https://pypi.org/project/graphviz
-## Installation Tutorial
+## Installation/Run Tutorial
 For Windows:
 * Install Python3 (project was written with Python 3.13)
   * Can be installed here: https://www.python.org/downloads/
@@ -16,8 +16,9 @@ For Windows:
 * Install antlr-denter
   * Run the command ***pip install antlr-denter***
 * Install graphviz
-  * Run the command ***pip install graphviz***
+  * Run the command ***pip install graphviz*** note: issues may arise installing graphviz in this manner, these may be solved by using anaconda3
 * Clone the GitHub repository
   * Run the command ***git clone https://github.com/qmcco/qmmcy4_CS4450_ParserProject.git***
 * Navigate to the project folder
   * Run the command ***cd qmmcy4_CS4450_ParserProject***
+* Run the following command to test the provided project_deliverable_3.py file: ***python3 main.py project_deliverable_3.py*** this will also create a .png of the parse tree
