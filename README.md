@@ -25,3 +25,16 @@ For Windows:
 * Navigate to the project folder in an Anaconda Prompt
   * Run the command ***cd qmmcy4_CS4450_ParserProject***
 * In the Anaconda Prompt run the following command to test the provided project_deliverable_3.py file: ***python3 main.py project_deliverable_3.py*** this will also create a .png of the parse tree
+
+For Ubuntu
+* Install python virtual environment library
+  * Run ***sudo apt install python3-venv***
+* Initialize the virtual environment: ***python3 -m venv vvv*** (vvv is the directory name)
+* Activate the virtual environment: ***source vvv/bin/activate***
+* Install antlr4 runtime: ***pip install antlr4-python3-runtime***
+* Install antlr-denter ***pip install antlr-denter***
+* Install graphviz ***pip install graphviz***
+* To test the parser and produce a .png visual representation of the parse tree, run the following command: ***python3 main.py project_deliverable_3.py***
+
+## Group Members
+* Quinn McCollister
