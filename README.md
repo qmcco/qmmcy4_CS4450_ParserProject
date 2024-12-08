@@ -26,7 +26,7 @@ For Windows:
   * Run the command ***cd qmmcy4_CS4450_ParserProject***
 * In the Anaconda Prompt run the following command to test the provided project_deliverable_3.py file: ***python3 main.py project_deliverable_3.py*** this will also create a .png of the parse tree
 
-For Ubuntu
+For Ubuntu:
 * Install python virtual environment library
   * Run ***sudo apt install python3-venv***
 * Initialize the virtual environment: ***python3 -m venv vvv*** (vvv is the directory name)
