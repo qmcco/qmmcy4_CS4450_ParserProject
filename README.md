@@ -41,3 +41,7 @@ For Ubuntu:
 
 ## Demo Video
 The demo video is attached, the attached version is a compressed version, the original will be attached to the project submission
+
+
+https://github.com/user-attachments/assets/485bc05d-6dba-44ef-a7d7-57d3efd8ed5b
+
