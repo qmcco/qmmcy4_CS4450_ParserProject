@@ -38,3 +38,6 @@ For Ubuntu:
 
 ## Group Members
 * Quinn McCollister
+
+## Demo Video
+The demo video is attached, the attached version is a compressed version, the original will be attached to the project submission
